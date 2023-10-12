@@ -12,8 +12,10 @@ export default async function handler(
   }
 
   try {
-    const { postId } = req.body;
-
+    let { postId } = req.body;
+    if (req.method === "DELETE") {
+      postId = req.query.postId;
+    }
     const { currentUser } = await serverAuth(req, res);
 
     if (!postId || typeof postId !== "string") {

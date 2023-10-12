@@ -12,8 +12,10 @@ export default async function handler(
   }
 
   try {
-    const { userId } = req.body;
-
+    let { userId } = req.body;
+    if (req.method === "DELETE") {
+      userId = req.query.userId;
+    }
     const { currentUser } = await serverAuth(req, res);
 
     if (!userId || typeof userId !== "string") {
